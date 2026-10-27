@@ -70,6 +70,12 @@ export const request = async (ruta, opciones = {}) => {
       throw new ErrorApi(0, { mensaje: "La petición tardó demasiado. Intente de nuevo." });
     }
 
+    if (error instanceof TypeError) {
+      throw new ErrorApi(0, {
+        mensaje: "No se pudo conectar con la API. Verifique que el backend esté en ejecución.",
+      });
+    }
+
     throw error;
   } finally {
     clearTimeout(temporizador);
